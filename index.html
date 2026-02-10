@@ -160,6 +160,11 @@ body{
 
   <p class="tap">Tap →</p>
 </div>
+<div id="endMessage" style="display:none; font-size:1.8em; padding:30px;">
+  🤍 Nee siricha podhum daa…<br>
+  Ennoda birthday gift complete 🤍<br><br>
+  🫂 Always with you
+</div>
 
 <script>
 let current=0;
@@ -169,14 +174,36 @@ const slides=document.querySelectorAll(".slide");
 const music=document.getElementById("bgm");
 
 document.body.addEventListener("click",()=>{
-  music.play();
+  music.volume = 0.6;
+music.play().catch(()=>{});
 
   if(cake.classList.contains("active")){
     cake.classList.remove("active");
     slidesScene.classList.add("active");
     slides[0].classList.add("active");
   }else{
-    if(current<slides.length-1){
+    document.body.addEventListener("click",()=>{
+  music.volume = 0.6;
+  music.play().catch(()=>{});
+
+  if(cake.classList.contains("active")){
+    cake.classList.remove("active");
+    slidesScene.classList.add("active");
+    slides[0].classList.add("active");
+  }
+  else if(current < slides.length - 1){
+    slides[current].classList.remove("active");
+    current++;
+    slides[current].classList.add("active");
+    sparkle();
+  }
+  else{
+    document.querySelector(".tap").style.display="none";
+    document.getElementById("endMessage").style.display="block";
+    music.volume = 0.8;
+    finalBlast();
+  }
+});
       slides[current].classList.remove("active");
       current++;
       slides[current].classList.add("active");
@@ -193,6 +220,18 @@ function sparkle(){
     h.innerText=["💖","🤍","✨","🐰"][Math.floor(Math.random()*4)];
     h.style.left=Math.random()*100+"vw";
     h.style.bottom="-20px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  }
+}
+function finalBlast(){
+  for(let i=0;i<20;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerText=["💖","🤍","✨","🎂","🐰"][Math.floor(Math.random()*5)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.bottom="0px";
+    h.style.fontSize="24px";
     document.body.appendChild(h);
     setTimeout(()=>h.remove(),6000);
   }
