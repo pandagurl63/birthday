@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For You 🤍</title>
+<style>
+body{
+  margin:0;
+  background:#0d0d0d;
+  color:white;
+  font-family: 'Segoe UI', sans-serif;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+.scene{
+  display:none;
+  padding:30px;
+}
+
+.active{
+  display:block;
+}
+
+h1{
+  font-size:28px;
+  animation:fadeIn 2s ease forwards;
+}
+
+.slide{
+  font-size:20px;
+  opacity:0;
+  animation:fadeSlide 1.5s ease forwards;
+}
+
+#tap{
+  position:absolute;
+  bottom:40px;
+  font-size:14px;
+  opacity:0.7;
+  animation:blink 1.5s infinite;
+}
+
+@keyframes fadeSlide{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes blink{
+  50%{opacity:0.2;}
+}
+
+.sparkle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:pink;
+  border-radius:50%;
+  animation:float 6s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div id="start" class="scene active">
+  <h1>Tap Anywhere 💖</h1>
+</div>
+
+<div id="slides" class="scene"></div>
+
+<div id="end" class="scene">
+  <h1>Always with you 🤍<br>
+  Many more happy returns daaa 🎀</h1>
+</div>
+
+<audio id="bgm" autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6a4f5a90e6.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const texts = [
+"Deyy Mosakutty, Happie poranthanaal daa 😘... Enaku unna romba pudikum...",
+"Daily unta pesama naal eh nalla pogathu...",
+"Nee enakku romba special daa 🤍",
+"Naa ethume express pannikaama cold ah iruntha haalu, enna warm ahh vechukitta daa nee 💪🫂",
+"One day meet pannuvom... Cherriyaa... orunaal fulla happiya time spend pannuvom.. wait pannuvom...",
+"Inga paaru, inniku epdi happiya irukkiyo, atheyy maari eppaiyum nee happiya irukkanum daah 🎀😊... LOVE YOUH 🤍"
+];
+
+let current = 0;
+const startScene = document.getElementById("start");
+const slidesScene = document.getElementById("slides");
+const endScene = document.getElementById("end");
+const music = document.getElementById("bgm");
+
+document.body.addEventListener("click", ()=>{
+  music.volume = 0.6;
+  music.play().catch(()=>{});
+
+  if(startScene.classList.contains("active")){
+    startScene.classList.remove("active");
+    slidesScene.classList.add("active");
+    showSlide();
+  }
+});
+
+function showSlide(){
+  if(current >= texts.length){
+    slidesScene.classList.remove("active");
+    endScene.classList.add("active");
+    return;
+  }
+
+  slidesScene.innerHTML = `<div class="slide">${texts[current]}</div>`;
+  current++;
+  setTimeout(showSlide, 6000);
+}
+
+/* Sparkles */
+for(let i=0;i<40;i++){
+  let s=document.createElement("div");
+  s.className="sparkle";
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=(4+Math.random()*5)+"s";
+  document.body.appendChild(s);
+}
+</script>
+
+</body>
+</html>
