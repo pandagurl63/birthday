@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:black;
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+  color:white;
+  text-align:center;
+}
+
+/* 🌈 Moving Gradient Glow Background */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  top:-50%;
+  left:-50%;
+  background:
+  radial-gradient(circle at 20% 30%, rgba(255,0,150,0.25), transparent 40%),
+  radial-gradient(circle at 80% 70%, rgba(0,200,255,0.25), transparent 40%),
+  radial-gradient(circle at 60% 20%, rgba(0,255,150,0.2), transparent 40%);
+  animation:bgmove 25s linear infinite alternate;
+  z-index:-3;
+}
+@keyframes bgmove{
+  0%{transform:translate(0,0)}
+  100%{transform:translate(10%,10%)}
+}
+
+/* 🌟 Color Moving Dots */
+.particle{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  animation:flow linear infinite;
+}
+@keyframes flow{
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-10vh)}
+}
+
+/* Center Screen */
+.screen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+/* Countdown */
+#count{
+  font-size:100px;
+  color:#ff4df0;
+  text-shadow:0 0 25px #ff4df0,0 0 50px white;
+}
+
+/* Cake Section */
+.neonText{
+  font-family:'Great Vibes',cursive;
+  font-size:42px;
+  margin-bottom:20px;
+  text-shadow:0 0 15px #ff4df0,0 0 30px #ff4df0;
+  opacity:0;
+  transition:1s;
+}
+
+.cake{
+  margin-top:20px;
+  position:relative;
+}
+
+/* Cream effect */
+.cream{
+  height:15px;
+  width:100%;
+  background:white;
+  border-radius:50%;
+  margin-top:-10px;
+}
+
+.layer{
+  width:220px;
+  height:60px;
+  background:linear-gradient(45deg,#ff4df0,#8a2be2);
+  margin:0 auto;
+  border-radius:20px;
+  box-shadow:0 0 30px #ff4df0;
+}
+
+.layer.small{width:170px}
+.layer.smaller{width:130px}
+
+.candle{
+  width:14px;
+  height:50px;
+  background:linear-gradient(white,#ddd);
+  margin:0 auto;
+  border-radius:5px;
+  position:relative;
+}
+
+.flame{
+  width:20px;
+  height:20px;
+  background:radial-gradient(circle,yellow,orange);
+  border-radius:50%;
+  position:absolute;
+  top:-20px;
+  left:-3px;
+  box-shadow:0 0 30px orange;
+  animation:flicker .3s infinite alternate;
+}
+@keyframes flicker{
+  from{transform:scale(1)}
+  to{transform:scale(1.2)}
+}
+
+/* Slides */
+.slide{
+  width:85%;
+  max-width:400px;
+  padding:25px;
+  border-radius:20px;
+  position:absolute;
+  left:100%;
+  transition:.6s;
+  box-shadow:0 0 25px white;
+  border:2px solid rgba(255,255,255,0.4);
+}
+.slide.active{left:7.5%}
+
+.bunny{
+  position:absolute;
+  top:10px;
+  left:15px;
+  font-size:22px;
+}
+
+.slide p{
+  margin-top:25px;
+  font-size:15px;
+  line-height:1.5;
+}
+
+/* Neon butterflies */
+.butterfly{
+  position:absolute;
+  font-size:22px;
+  text-shadow:0 0 15px #ff4df0,0 0 25px #00ffff;
+  animation:fly 20s linear infinite;
+}
+@keyframes fly{
+  0%{transform:translateY(100vh) translateX(0)}
+  50%{transform:translateY(40vh) translateX(50vw)}
+  100%{transform:translateY(-10vh) translateX(100vw)}
+}
+
+/* Final Text */
+.finalText{
+  font-family:'Great Vibes',cursive;
+  font-size:45px;
+  opacity:0;
+  animation:fadeIn 2s forwards;
+}
+@keyframes fadeIn{
+  to{opacity:1}
+}
+
+.endText{
+  margin-top:20px;
+  font-size:20px;
+  animation:slideIn 2s forwards;
+}
+@keyframes slideIn{
+  from{transform:translateY(50px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+.hidden{display:none}
+.footer{
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  font-size:10px;
+  opacity:.6;
+}
+</style>
+</head>
+<body>
+
+<audio id="bgm" loop>
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8c8a73467.mp3" type="audio/mp3">
+</audio>
+
+<div id="countScreen" class="screen">
+<div id="count">5</div>
+</div>
+
+<div id="cakeScreen" class="screen hidden">
+<div class="neonText" id="wish">Happie Birthday En Vennamavaney✨😹</div>
+<div class="cake" id="cakeTap">
+<div class="candle"><div class="flame" id="flame"></div></div>
+<div class="layer smaller"></div><div class="cream"></div>
+<div class="layer small"></div><div class="cream"></div>
+<div class="layer"></div>
+</div>
+</div>
+
+<div id="slideScreen" class="screen hidden"></div>
+
+<div class="footer">created by ur aalu</div>
+
+<script>
+
+/* 🌈 colored particles */
+let colors=["#ff4df0","#00ffff","#00ff99","#ffffff","#ff6600"];
+for(let i=0;i<70;i++){
+let p=document.createElement("div");
+p.className="particle";
+p.style.left=Math.random()*100+"vw";
+p.style.background=colors[Math.floor(Math.random()*colors.length)];
+p.style.animationDuration=(5+Math.random()*10)+"s";
+document.body.appendChild(p);
+}
+
+/* butterflies */
+for(let i=0;i<4;i++){
+let b=document.createElement("div");
+b.className="butterfly";
+b.innerHTML="🦋";
+b.style.left=Math.random()*100+"vw";
+document.body.appendChild(b);
+}
+
+/* countdown */
+let c=5;
+let timer=setInterval(()=>{
+c--;
+document.getElementById("count").innerHTML=c;
+if(c==0){
+clearInterval(timer);
+countScreen.classList.add("hidden");
+cakeScreen.classList.remove("hidden");
+}
+},1000);
+
+/* cake tap */
+cakeTap.onclick=function(){
+flame.style.display="none";
+wish.style.opacity=1;
+setTimeout(()=>{
+cakeScreen.classList.add("hidden");
+slideScreen.classList.remove("hidden");
+bgm.play();
+startSlides();
+},2000);
+};
+
+/* slides */
+let slides=[
+`Happy Poranthanaal da Bunny🤗🤍! 
+Hope everything goes fine from now! Happiyaa iruu!! Naa unkuda iruken🫂!`,
+
+`Unnoda first Birthday with mee laa🥹! Naa unaku Blessingss Tharra!😌 Nalla iru Maganeyy🫂🤍`,
+
+`Nee enaku Special person! Simple ah sollanum na, "Close to the Heart🫀"! Literally ethuku pudichuthu yen pudichuthu nu laam therilaa..😅 Aana pudichuthu😌! Love you Mine✨🤍`,
+
+`Naa Sometimes nalla nadanthuka maata..! Epdina Cold ahh nadadanthupen..! Aana nee Warm ah vechukitta ennaa..! 🙃🫂 That's something  special daa! 🥹🤗! Enna purinjukanum nu Try pannura laa!! Athuve pothum daa🫂🤍`,
+
+`Nee tha enakku Favourite uh!! Na engaiyu poga maata!! Promise pannuren🫳🏻!!! Poren nu sonnalu unta tha Varuven! Kavalai Vendam😌!
+ Love you Chelloww😌🤍`,
+
+`Atleast oru smile Vanthurukum nu namburaa!!😹 Athu pothum😌🫂! 
+Nee sonna mari orunaal Meet pannuvom!!! Porumaiya papom!! Wait pannu!!! Cherriyaaa🥹🙏🏻!!! 
+Kaathiruppom!! Manifestingg!!💪🏻✨!`
+];
+
+let gradients=[
+"linear-gradient(135deg,#ff4df0,#00ffff)",
+"linear-gradient(135deg,#ff6600,#ff0000)",
+"linear-gradient(135deg,#0066ff,#9900ff)",
+"linear-gradient(135deg,#00ff99,#0099ff)",
+"linear-gradient(135deg,#ff3399,#6633ff)",
+"linear-gradient(135deg,#00ffff,#00ff99)"
+];
+
+function startSlides(){
+let i=0;
+let box=document.createElement("div");
+box.className="slide active";
+box.style.background=gradients[i];
+box.innerHTML=`<div class="bunny">🐰</div><p>${slides[i]}</p>`;
+slideScreen.appendChild(box);
+
+slideScreen.onclick=function(){
+box.classList.remove("active");
+setTimeout(()=>{
+i++;
+if(i<slides.length){
+box.style.background=gradients[i];
+box.innerHTML=`<div class="bunny">🐰</div><p>${slides[i]}</p>`;
+box.classList.add("active");
+}else{
+showFinal();
+}
+},400);
+};
+}
+
+function showFinal(){
+slideScreen.innerHTML=`
+<div class="finalText">
+Happy Birthday Da HariHARAn!🤗✨<br>
+Love youh To the Core!🤍✨
+</div>
+<div class="endText">
+Avlotha Mudinchh😸😌
+</div>`;
+}
+</script>
+
+</body>
+</html>
